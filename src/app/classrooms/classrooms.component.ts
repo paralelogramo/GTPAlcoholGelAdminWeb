@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassroomsComponent implements OnInit {
 
+  mode: String = 'Card';
+
+  changeMode() {
+    console.log('Cambio')
+    if (this.mode == 'Card'){
+      this.mode = 'List';
+    }
+    else{
+      this.mode = 'Card';
+    }
+  }
+
   constructor() { }
 
   ngOnInit(): void {
