@@ -1,3 +1,13 @@
 <div class="main-content">
-    <p>classrooms works!</p>
+    <mat-grid-list cols="2" rowHeight="10:1">
+        <mat-grid-tile [colspan]="2">
+            <button mat-raised-button color="primary" (click)="changeMode()">Change</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" *ngIf="mode == 'Card'">
+            <p>Oh Look! this i am on CAR mode</p>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" *ngIf="mode == 'List'">
+            <p>Oh Look! this i am on LIST mode</p>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>
