@@ -1,13 +1,9 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { ClassroomsComponent } from 'app/classrooms/classrooms.component';
+import { HistoryComponent } from 'app/history/history.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -53,5 +49,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'notificaciones',     component: TableListComponent },
+    { path: 'notifications',     component: TableListComponent },
+    { path: 'classrooms',     component: ClassroomsComponent },
+    { path: 'history',     component:  HistoryComponent},
 ];
