@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
+
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -16,7 +18,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     RouterModule,
     MatMenuModule,
     MatDividerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatButtonModule
   ],
   declarations: [
     FooterComponent,
