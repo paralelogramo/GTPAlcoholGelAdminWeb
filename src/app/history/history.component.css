@@ -1,18 +1,24 @@
-.baseTile{
+.baseTile {
     width: 95%;
     height: 95%;
 }
 
-.insideTile{
+.insideTile {
     width: 90%;
 }
 
-.paginatorDiv{
+.paginatorDiv {
     justify-content: center;
     text-align: center;
     width: 100%;
 }
 
-.paginator{
-    width: 80%;
+
+.table {
+    width: 100%;
+}
+
+.mat-header-cell {
+    font-weight: 400;
+    color: #9F2ABF;
 }
