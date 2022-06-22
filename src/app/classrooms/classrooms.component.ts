@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-classrooms',
   templateUrl: './classrooms.component.html',
-  styleUrls: ['./classrooms.component.scss']
+  styleUrls: ['./classrooms.component.css']
 })
 export class ClassroomsComponent implements OnInit {
 
@@ -11,10 +11,10 @@ export class ClassroomsComponent implements OnInit {
 
   changeMode() {
     console.log('Cambio')
-    if (this.mode == 'Card'){
+    if (this.mode == 'Card') {
       this.mode = 'List';
     }
-    else{
+    else {
       this.mode = 'Card';
     }
   }

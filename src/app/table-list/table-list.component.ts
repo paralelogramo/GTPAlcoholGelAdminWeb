@@ -59,14 +59,22 @@ export class TableListComponent implements OnInit {
   }
 
   constructor() { }
-  showNotification(from, align) {
+  showNotification(from, align, room, action) {
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
     const color = 2; // Enviar notificacion y si no se pudo eliminar tirar el danger
+    let message = '';
+
+    if (action == 'repair') {
+      message = room + ' Reparada con éxito!';
+    }
+    else {
+      message = 'Dispensador de Alcohol Gel de ' + room + ' Recargado con éxito!';
+    }
 
     $.notify({
       icon: "notifications",
-      message: "Dispensador de alcohol gel recargado con exito"
+      message: message
 
     }, {
       type: type[color],

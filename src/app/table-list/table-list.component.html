@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Filtros de Busqueda</h4>
+                        <h4 class="card-title ">Filtros de Búsqueda</h4>
                         <p class="card-category">Puedes utilizar estos distintos filtros para buscar dentro del
                             historial.</p>
                     </div>
@@ -48,7 +48,7 @@
                             <!-- Searching for Range Count of notifications -->
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Busqueda</mat-label>
+                                    <mat-label>Búsqueda</mat-label>
                                     <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Bienestar Est."
                                         #input>
                                 </mat-form-field>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Historial de Busqueda</h4>
-                        <p class="card-category">Aqui puedes ver el historial completo de las notificaciones enviadas.
+                        <h4 class="card-title ">Historial de Búsqueda</h4>
+                        <p class="card-category">Aquí puedes ver el historial completo de las notificaciones enviadas.
                         </p>
                     </div>
                     <div class="card-body">
@@ -80,22 +80,24 @@
 
                                 <!-- Weight Column -->
                                 <ng-container matColumnDef="date">
-                                    <th mat-header-cell *matHeaderCellDef> Ultima Notif. </th>
+                                    <th mat-header-cell *matHeaderCellDef> Última Notif. </th>
                                     <td mat-cell *matCellDef="let element"> {{element.date}} </td>
                                 </ng-container>
 
                                 <!-- Symbol Column -->
                                 <ng-container matColumnDef="reason">
-                                    <th mat-header-cell *matHeaderCellDef> Razon </th>
+                                    <th mat-header-cell *matHeaderCellDef> Razón </th>
                                     <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="actions">
                                     <th mat-header-cell *matHeaderCellDef> Accion </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <button class="buttonTable" *ngIf="element.reason == 'Alcohol Gel'"
+                                        <button (click)="showNotification('bottom','center', element.room, 'recharge')"
+                                            class="buttonTable" *ngIf="element.reason == 'Alcohol Gel'"
                                             mat-stroked-button color="warn">Recargar</button>
-                                        <button class="buttonTable" *ngIf="element.reason == 'Reparacion'"
+                                        <button (click)="showNotification('bottom','center', element.room, 'repair')"
+                                            class="buttonTable" *ngIf="element.reason == 'Reparacion'"
                                             mat-stroked-button color="warn">Reparar</button>
                                     </td>
                                 </ng-container>
