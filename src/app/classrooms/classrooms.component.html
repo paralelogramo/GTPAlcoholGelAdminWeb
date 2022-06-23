@@ -1,13 +1,30 @@
 <div class="main-content">
-    <mat-grid-list cols="2" rowHeight="10:1">
-        <mat-grid-tile [colspan]="2">
-            <button mat-raised-button color="primary" (click)="changeMode()">Change</button>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" *ngIf="mode == 'Card'">
-            <p>Oh Look! this i am on CAR mode</p>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" *ngIf="mode == 'List'">
-            <p>Oh Look! this i am on LIST mode</p>
-        </mat-grid-tile>
-    </mat-grid-list>
+    <div class="card">
+        <div class="card-header card-header-danger">
+            <h4 class="card-title ">Filtros de Búsqueda</h4>
+            <p class="card-category">Puedes utilizar estos distintos filtros para buscar dentro del
+                historial.</p>
+        </div>
+        <div class="card-body">
+            <div class="container horizontal-scrollable">
+                <div class="row scrollable">
+                    <!-- Searching for Building -->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+                        <p>Hola</p>
+                    </div>
+                    <!-- Searching for Range Date -->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+                        <p>Hola</p>
+                    </div>
+                    <!-- Searching for Range Count of notifications -->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+                        <p>Hola</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-4">
+                        <p>Hola</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

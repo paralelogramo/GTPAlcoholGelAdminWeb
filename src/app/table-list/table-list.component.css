@@ -1,0 +1,12 @@
+.mat-header-cell {
+    font-weight: 400;
+    color: #9F2ABF;
+}
+
+.buttonTable {
+    color: #9F2ABF;
+}
+
+.scrollable {
+    overflow-x: scroll;
+}
