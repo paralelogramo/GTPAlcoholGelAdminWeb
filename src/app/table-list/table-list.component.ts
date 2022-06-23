@@ -3,30 +3,17 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { HttpClient } from '@angular/common/http';
+import { NotificationService } from 'app/services/notification.service';
 
 declare var $: any;
 
 export interface Notification {
   building: string;
   room: string;
-  date: string;
   reason: string;
+  count: number;
 }
-
-const ELEMENT_DATA: Notification[] = [
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Reparacion' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' }
-];
 
 @Component({
   selector: 'app-table-list',
@@ -43,12 +30,11 @@ export class TableListComponent implements OnInit {
     end: new FormControl(),
   });
 
-  displayedColumns: string[] = ['building', 'room', 'date', 'reason', 'actions'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['building', 'room', 'reason', 'count', 'actions'];
+  dataSource = new MatTableDataSource<Notification>();
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue.trim());
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -58,7 +44,10 @@ export class TableListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() { }
+  constructor(
+    private notificationService: NotificationService
+  ) { }
+
   showNotification(from, align, room, action) {
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
@@ -96,8 +85,11 @@ export class TableListComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.buildings.disable();
-    this.range.disable();
+    // this.buildings.disable();
+    // this.range.disable();
+    this.notificationService.getNotifications().subscribe((resp: Notification[]) => {
+      this.dataSource = new MatTableDataSource<Notification>(resp);
+    })
   }
 
 }

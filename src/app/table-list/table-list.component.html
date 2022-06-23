@@ -5,16 +5,16 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Filtros de Búsqueda</h4>
-                        <p class="card-category">Puedes utilizar estos distintos filtros para buscar dentro del
-                            historial.</p>
+                        <p class="card-category">Puedes utilizar estos distintos filtros para buscar dentro del listado
+                            de notificaciones.</p>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <!-- Searching for Building -->
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <mat-form-field appearance="fill">
-                                    <!-- <mat-label>Edificios</mat-label> -->
-                                    <mat-label>Filtro no Disponible</mat-label>
+                                    <mat-label>Edificios</mat-label>
+                                    <!-- <mat-label>Filtro no Disponible</mat-label> -->
                                     <mat-select [formControl]="buildings" multiple
                                         (selectionChange)="applyFilter($event)">
                                         <mat-select-trigger>
@@ -35,8 +35,8 @@
                             <!-- Searching for Range Date -->
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <mat-form-field appearance="fill">
-                                    <!-- <mat-label>DD/MM/YYYY - DD/MM/YYYY</mat-label> -->
-                                    <mat-label>Filtro no Disponible</mat-label>
+                                    <mat-label>DD/MM/YYYY - DD/MM/YYYY</mat-label>
+                                    <!-- <mat-label>Filtro no Disponible</mat-label> -->
                                     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
                                         <input matStartDate formControlName="start" placeholder="Start date">
                                         <input matEndDate formControlName="end" placeholder="End date">
@@ -58,8 +58,8 @@
                 </div>
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Historial de Búsqueda</h4>
-                        <p class="card-category">Aquí puedes ver el historial completo de las notificaciones enviadas.
+                        <h4 class="card-title ">Lista de Notificaciones</h4>
+                        <p class="card-category">Aquí puedes ver el listado de notificaciones emitidas.
                         </p>
                     </div>
                     <div class="card-body">
@@ -88,6 +88,11 @@
                                 <ng-container matColumnDef="reason">
                                     <th mat-header-cell *matHeaderCellDef> Razón </th>
                                     <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="count">
+                                    <th mat-header-cell *matHeaderCellDef> Conteo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.count}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="actions">

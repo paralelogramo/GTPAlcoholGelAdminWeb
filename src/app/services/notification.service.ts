@@ -6,12 +6,12 @@ import { Injectable, ViewChild } from '@angular/core';
 })
 export class NotificationService {
 
-  private baseUrl = 'alcoholgel.sytes.net';
+  private baseUrl = 'http://alcoholgel.sytes.net';
   private port = '3000';
 
   constructor(private notificationHttp: HttpClient) { }
 
-  getNotification() {
+  getNotifications() {
     // Get all the notifications of the database
     return this.notificationHttp.get(this.baseUrl + ':' + this.port + '/getNotifications');
   }
