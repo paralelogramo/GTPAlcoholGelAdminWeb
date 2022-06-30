@@ -3,28 +3,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { NotificationService } from 'app/services/notification.service';
 
 export interface Notification {
   building: string;
   room: string;
-  date: string;
+  datetime: string;
   reason: string;
+  count: number;
 }
-
-const ELEMENT_DATA: Notification[] = [
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Bienestar Est.', room: 'Sala S2', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Serv. Multiples', room: 'Sala 21', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' },
-  { building: 'Laboratorios', room: 'Telematica', date: '6/15/19, 5:24 PM', reason: 'Alcohol Gel' }
-];
 
 @Component({
   selector: 'app-history',
@@ -42,8 +29,8 @@ export class HistoryComponent implements OnInit {
     end: new FormControl(),
   });
 
-  displayedColumns: string[] = ['building', 'room', 'date', 'reason'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['build', 'room', 'datetime', 'reason', 'count'];
+  dataSource = new MatTableDataSource<Notification>();
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -57,13 +44,22 @@ export class HistoryComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() {
+  constructor(
+    private notificationService: NotificationService
+  ) {
   }
 
 
   ngOnInit(): void {
     this.buildings.disable();
     this.range.disable();
+    this.getHistory()
+  }
+
+  private getHistory(){
+    this.notificationService.getHistory().subscribe((resp:any) => {
+      this.dataSource = new MatTableDataSource<Notification>(resp);
+    })
   }
 
 }

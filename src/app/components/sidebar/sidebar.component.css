@@ -1,0 +1,30 @@
+.logoutContainer{
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutButton{
+    position: absolute;
+    bottom: 0%;
+    width: 80%;
+}
+
+.img{
+    display: flex;
+    max-width: 40%;
+    height: auto;
+}
+
+.imagediv, .namediv{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.col-md-12{
+    padding: 0px;
+}
