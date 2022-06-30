@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'app/services/notification.service';
 import * as Chartist from 'chartist';
 
 @Component({
@@ -8,7 +9,16 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  totallyCharged: boolean = false; // use to know when show the info
+
+  totalRooms: number = 0;
+  notifiedRooms: number = 0;
+  mostNotifiedRoom: string = '';
+  countRR: number = 0;
+
+  constructor(
+    private notificationService: NotificationService
+  ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,6 +76,10 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.getTotalRooms();
+    this.getNotifiedRooms();
+    this.getMostNotifiedRoom();
+    this.getCountOfRR();
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -87,32 +101,6 @@ export class DashboardComponent implements OnInit {
       var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
       this.startAnimationForLineChart(dailySalesChart);
-
-
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-      const dataCompletedTasksChart: any = {
-          labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
-
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
-
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
-
-
 
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
@@ -148,4 +136,27 @@ export class DashboardComponent implements OnInit {
       
   }
 
+  private getTotalRooms(){
+    this.notificationService.getTotalRooms().subscribe((resp:any) => {
+      this.totalRooms = resp.total
+    })
+  }
+
+  private getNotifiedRooms(){
+    this.notificationService.getNotifiedRooms().subscribe((resp:any) => {
+      this.notifiedRooms = resp.count
+    })
+  }
+
+  private getMostNotifiedRoom(){
+    this.notificationService.getMostNotifiedRoom().subscribe((resp:any) => {
+      this.mostNotifiedRoom = resp.name
+    })
+  }
+
+  private getCountOfRR(){
+    this.notificationService.getCountOfRR().subscribe((resp:any) => {
+      this.countRR = resp.count
+    })
+  }
 }

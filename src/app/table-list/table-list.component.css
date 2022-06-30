@@ -5,8 +5,5 @@
 
 .buttonTable {
     color: #9F2ABF;
-}
-
-.scrollable {
-    overflow-x: scroll;
+    margin-left: 10px;
 }

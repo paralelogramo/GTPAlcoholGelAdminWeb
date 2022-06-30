@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { HttpClient } from '@angular/common/http';
 import { NotificationService } from 'app/services/notification.service';
 
 declare var $: any;
@@ -21,9 +20,10 @@ export interface Notification {
   styleUrls: ['./table-list.component.css']
 })
 export class TableListComponent implements OnInit {
+  
   buildings = new FormControl('');
 
-  buildingList: string[] = ['Bienestar Est.', 'Decanato', 'Laboratorios', 'Serv. Multiples', 'Mecánica', 'Biblioteca'];
+  buildingList: string[] = [] // alimentar con la db
 
   range = new FormGroup({
     start: new FormControl(),
@@ -48,10 +48,10 @@ export class TableListComponent implements OnInit {
     private notificationService: NotificationService
   ) { }
 
-  showNotification(from, align, room, action) {
+  showNotification(from, align, room, action, count) {
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
-    const color = 2; // Enviar notificacion y si no se pudo eliminar tirar el danger
+    const color = 2; // Enviar notificacion y si no se pudo eliminar tirar el danger 5
     let message = '';
 
     if (action == 'repair') {
@@ -60,6 +60,8 @@ export class TableListComponent implements OnInit {
     else {
       message = 'Dispensador de Alcohol Gel de ' + room + ' Recargado con éxito!';
     }
+
+    // aca dentro hacer el request
 
     $.notify({
       icon: "notifications",
@@ -85,11 +87,27 @@ export class TableListComponent implements OnInit {
     });
   }
   ngOnInit() {
-    // this.buildings.disable();
-    // this.range.disable();
+    this.buildings.disable();
+    this.range.disable();
+    this.getBuildsNames();
+    this.getNotifications();
+  }
+
+  private getBuildsNames(){
+    this.notificationService.getBuildsName().subscribe((resp:any) => {
+      resp.forEach(obj => {
+        this.buildingList.push(obj.name)
+      });
+    })
+  }
+
+  private getNotifications(){
     this.notificationService.getNotifications().subscribe((resp: Notification[]) => {
       this.dataSource = new MatTableDataSource<Notification>(resp);
     })
   }
 
+  private sendAction(){
+
+  }
 }

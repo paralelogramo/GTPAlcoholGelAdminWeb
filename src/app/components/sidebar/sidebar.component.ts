@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'app/services/notification.service';
+import {Md5} from 'ts-md5/dist/md5';
 
 declare const $: any;
+
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -21,11 +24,17 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  imgURL: string = ''
+  username: string = ''
+  lastname: string = ''
 
-  constructor() { }
+  constructor(
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.getUser()
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
@@ -33,4 +42,12 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  private getUser(){
+    this.notificationService.getUser(Md5.hashStr("msaez@utalca.cl")).subscribe((resp: any) => {
+      this.imgURL = resp.url
+      this.username = resp.name
+      this.lastname = resp.lastname
+    })
+  }
 }

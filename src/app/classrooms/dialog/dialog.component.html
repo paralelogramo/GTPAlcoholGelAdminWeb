@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <qrcode (qrCodeURL)="onChangeURL($event)" #parent [qrdata]=data.url [width]="400" elementType="img" [errorCorrectionLevel]="'M'"></qrcode>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="containerButton">
+                        <a class="downloadbutton containerButton" [href]="qrCodeDownloadLink" download={{data.name}}>
+                            <button mat-raised-button color="warn" class="downloadbutton">Descargar</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

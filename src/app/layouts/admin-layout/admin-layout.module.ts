@@ -21,6 +21,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DialogComponent } from 'app/classrooms/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
@@ -42,12 +45,15 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatSliderModule,
     MatTableModule,
     ScrollingModule,
+    MatDialogModule,
+    QRCodeModule
   ],
   declarations: [
     DashboardComponent,
     TableListComponent,
     HistoryComponent,
-    ClassroomsComponent
+    ClassroomsComponent,
+    DialogComponent,
   ]
 })
 

@@ -34,3 +34,20 @@
 .col-xs-4:nth-child(2n+2) {
     background: black;
 }
+
+.mat-header-cell {
+    font-weight: 400;
+    color: #9F2ABF;
+}
+
+.secondButton{
+    margin-left: 10px;
+}
+
+.updiv{
+    margin-top: 10px;
+}
+
+.createBuild, .createRoom{
+    width: 100%;
+}
