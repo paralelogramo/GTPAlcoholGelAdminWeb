@@ -11,22 +11,22 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6 col-md-4 col-sm-6">
-                                <button class="createBuild" mat-stroked-button color="warn">Crear Edificio</button>
+                                <button class="createBuild" mat-stroked-button color="warn" (click)="showBuild('add')">Crear Edificio</button>
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-6">
-                                <button class="createRoom" mat-stroked-button color="warn">Crear Sala</button>
+                                <button class="createRoom" mat-stroked-button color="warn" (click)="showRoom('add')">Crear Sala</button>
                             </div>
                         </div>
                         <div class="row updiv">
                             <div class="col-lg-6 col-md-4 col-sm-6">
-                                <mat-form-field appearance="fill">
+                                <mat-form-field appearance="outline">
                                     <mat-label>Búsqueda Edificio</mat-label>
                                     <input matInput (keyup)="applyFilterBuilds($event)" placeholder="Ej. Bienestar Est."
                                         #input>
                                 </mat-form-field>
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-6">
-                                <mat-form-field appearance="fill">
+                                <mat-form-field appearance="outline">
                                     <mat-label>Búsqueda Sala</mat-label>
                                     <input matInput (keyup)="applyFilterRooms($event)" placeholder="Ej. Sala 101"
                                         #input>
@@ -58,10 +58,10 @@
                                         <ng-container matColumnDef="actions">
                                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                             <td mat-cell *matCellDef="let element">
-                                                <button mat-icon-button disabled color="warn" aria-label="Example icon button with a home icon">
+                                                <button (click)="showBuild('edit', element)" mat-icon-button color="warn" aria-label="Example icon button with a home icon">
                                                     <i class="material-icons">edit</i>
                                                     </button>
-                                                <button class= 'secondButton' disabled mat-icon-button color="warn" aria-label="Example icon button with a home icon">
+                                                <button (click)="deleteBuild(element)" class= 'secondButton' mat-icon-button color="warn" aria-label="Example icon button with a home icon">
                                                     <i class="material-icons">delete</i>
                                                     </button>
                                             </td>
@@ -97,10 +97,10 @@
                                         <ng-container matColumnDef="actions">
                                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                             <td mat-cell *matCellDef="let element">
-                                                <button mat-icon-button disabled color="warn" aria-label="Example icon button with a home icon">
+                                                <button (click)="showRoom('edit', element)"  mat-icon-button color="warn" aria-label="Example icon button with a home icon">
                                                     <i class="material-icons">edit</i>
                                                     </button>
-                                                <button class= 'secondButton' disabled mat-icon-button color="warn" aria-label="Example icon button with a home icon">
+                                                <button (click)="deleteRoom(element)" class='secondButton' mat-icon-button color="warn" aria-label="Example icon button with a home icon">
                                                     <i class="material-icons">delete</i>
                                                     </button>
                                                 <button (click)="showQR(element)" class='secondButton' mat-icon-button color="warn" aria-label="Example icon button with a home icon">
@@ -110,7 +110,7 @@
                                         </ng-container>
         
                                         <tr mat-header-row *matHeaderRowDef="displayedColumnsRooms; sticky: true"></tr>
-                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsRooms;"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsRooms;" (click)="rowClickRoom(row);"></tr>
                                     </table>
                                 </div>
                                 <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"

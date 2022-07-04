@@ -1,0 +1,10 @@
+.containerButton{
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.addButton{
+    width: 80%;
+}

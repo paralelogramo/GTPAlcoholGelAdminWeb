@@ -1,17 +1,21 @@
-<div mat-dialog-content>
+<div mat-dialog-content> 
     <div class="main-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <qrcode (qrCodeURL)="onChangeURL($event)" #parent [qrdata]=data.url [width]="400" elementType="img" [errorCorrectionLevel]="'M'"></qrcode>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="containerButton">
-                        <a class="downloadbutton containerButton" [href]="qrCodeDownloadLink" download={{data.name}}>
-                            <button mat-raised-button color="warn" class="downloadbutton">Descargar</button>
-                        </a>
+                    <div class="card text-center margin">
+                        <div class="card-header card-header-rose">
+                            <h4 class="card-title ">¡Codigo QR Creado!</h4>
+                            <p class="card-category">Ahora puedes escanearlo o descargarlo.</p>
+                        </div>
+                        <div class="card-body">
+                            <qrcode id="canva" (qrCodeURL)="onChangeURL($event)" #parent [qrdata]=data.url [width]="250" elementType="img" [errorCorrectionLevel]="'H'"></qrcode>
+                            <a class="downloadbutton containerButton" [href]="qrCodeDownloadLink" download={{data.name}}>
+                                <button mat-raised-button color="accent" class="downloadbutton">Descargar</button>
+                            </a>
+                        </div>
+                        <div class="card-footer">
+                        </div>
                     </div>
                 </div>
             </div>

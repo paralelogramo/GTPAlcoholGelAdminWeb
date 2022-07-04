@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { NotificationService } from 'app/services/notification.service';
-
-declare var $: any;
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
 
 export interface Notification {
   building: string;
@@ -20,6 +20,10 @@ export interface Notification {
   styleUrls: ['./table-list.component.css']
 })
 export class TableListComponent implements OnInit {
+
+  pipe = new DatePipe('en-US');
+
+  clickedRow: any = null;
   
   buildings = new FormControl('');
 
@@ -45,52 +49,68 @@ export class TableListComponent implements OnInit {
   }
 
   constructor(
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private snackBar: MatSnackBar
   ) { }
 
-  showNotification(from, align, room, action, count) {
-    const type = ['', 'info', 'success', 'warning', 'danger'];
-
-    const color = 2; // Enviar notificacion y si no se pudo eliminar tirar el danger 5
-    let message = '';
-
-    if (action == 'repair') {
-      message = room + ' Reparada con éxito!';
-    }
-    else {
-      message = 'Dispensador de Alcohol Gel de ' + room + ' Recargado con éxito!';
-    }
-
-    // aca dentro hacer el request
-
-    $.notify({
-      icon: "notifications",
-      message: message
-
-    }, {
-      type: type[color],
-      timer: 4000,
-      placement: {
-        from: from,
-        align: align
+  rowClick($event){
+    this.clickedRow = $event;
+  }
+  
+  showNotification( room ) {
+    this.notificationService.getRoomByName(room.room).subscribe((resp: any) => {
+      this.notificationService.postRR(room.building, room.room, this.pipe.transform(Date.now(), 'dd/MM/yyyy'), this.pipe.transform(Date.now(), 'hh:mm:ss'), room.reason, room.count, resp.room_id).subscribe((resp: any) => {
+        if (resp.confirm) {
+          if (room.reason == 'Alcohol Gel') {
+            this.snackBar.open(
+              "Dispensador de alcohol gel " + room.room + ' recargado con éxito!',
+              null,
+              {
+                duration: 5000
+              });
+          }
+          else {
+            this.snackBar.open(
+              room.room + 'reparado con éxito!',
+              null,
+              {
+                duration: 5000
+              });
+          }
+          this.getNotifications();
+        } else {
+          this.snackBar.open(
+            "Ups! Al parecer hubo un problema, inténtalo de nuevo!",
+            null,
+            {
+              duration: 5000
+            });
+        }
       },
-      template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
-        '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
-        '<i class="material-icons" data-notify="icon">notifications</i> ' +
-        '<span data-notify="title">{1}</span> ' +
-        '<span data-notify="message">{2}</span>' +
-        '<div class="progress" data-notify="progressbar">' +
-        '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-        '</div>' +
-        '<a href="{3}" target="{4}" data-notify="url"></a>' +
-        '</div>'
-    });
+      error => {
+        this.snackBar.open(
+          "Ups! Al parecer hubo un problema, inténtalo de nuevo!",
+          null,
+          {
+            duration: 5000
+          });
+      })
+    },
+    error => {
+      this.snackBar.open(
+        "Ups! Al parecer hubo un problema, inténtalo de nuevo!",
+        null,
+        {
+          duration: 5000
+        });
+    })
   }
   ngOnInit() {
     this.buildings.disable();
     this.range.disable();
     this.getBuildsNames();
     this.getNotifications();
+    // let todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy hh:mm:ss');
   }
 
   private getBuildsNames(){
@@ -105,9 +125,5 @@ export class TableListComponent implements OnInit {
     this.notificationService.getNotifications().subscribe((resp: Notification[]) => {
       this.dataSource = new MatTableDataSource<Notification>(resp);
     })
-  }
-
-  private sendAction(){
-
   }
 }
