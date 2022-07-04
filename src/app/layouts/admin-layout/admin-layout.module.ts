@@ -24,11 +24,15 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DialogComponent } from 'app/classrooms/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { QRCodeModule } from 'angularx-qrcode';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreateroomdialogComponent } from 'app/classrooms/createroomdialog/createroomdialog.component';
+import { CreatebuilddialogComponent } from 'app/classrooms/createbuilddialog/createbuilddialog.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
+    RouterModule.forRoot(AdminLayoutRoutes, { useHash: false }),
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -46,7 +50,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatTableModule,
     ScrollingModule,
     MatDialogModule,
-    QRCodeModule
+    QRCodeModule,
+    MatSnackBarModule
   ],
   declarations: [
     DashboardComponent,
@@ -54,6 +59,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     HistoryComponent,
     ClassroomsComponent,
     DialogComponent,
+    CreateroomdialogComponent,
+    CreatebuilddialogComponent,
   ]
 })
 
